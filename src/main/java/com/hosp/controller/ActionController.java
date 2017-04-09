@@ -36,6 +36,6 @@ public class ActionController {
     @RequestMapping(value = "/home")
     @ResponseBody
     public String home() {
-        return "fd";
+        return "home";
     }
 }

@@ -15,7 +15,7 @@ public class DoctorDto {
     private Long id;
     private String name;
     private String surname;
-    private SpecialtyDto specialty;
+    private String specialty;
     private String photoUrl;
     private List<ScheduleDto> scheduleDto;
 
@@ -25,7 +25,7 @@ public class DoctorDto {
         this.surname = doctor.getSurname();
         this.photoUrl = doctor.getPhotoUrl();
         this.specialty = doctor.getSpecialty() == null ?
-                null : new SpecialtyDto(doctor.getSpecialty());
+                null : doctor.getSpecialty().getName();
         this.scheduleDto = doctor.getSchedules().stream()
                 .map(ScheduleDto::new)
                 .collect(Collectors.toList());
@@ -61,14 +61,6 @@ public class DoctorDto {
 
     public void setSurname(String surname) {
         this.surname = surname;
-    }
-
-    public SpecialtyDto getSpecialty() {
-        return specialty;
-    }
-
-    public void setSpecialty(SpecialtyDto specialty) {
-        this.specialty = specialty;
     }
 
     public String getPhotoUrl() {

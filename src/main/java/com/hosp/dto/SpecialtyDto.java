@@ -13,13 +13,24 @@ import java.util.stream.Collectors;
 public class SpecialtyDto {
 
     private Long id;
+    private List<DoctorDto> doctors;
     private String name;
 
     public SpecialtyDto(Specialty specialty) {
         this.id = specialty.getId();
         this.name = specialty.getName();
+        this.doctors = specialty.getDoctors().stream()
+                .map(DoctorDto::new)
+                .collect(Collectors.toList());
     }
 
+    public List<DoctorDto> getDoctors() {
+        return doctors;
+    }
+
+    public void setDoctors(List<DoctorDto> doctors) {
+        this.doctors = doctors;
+    }
 
     public Long getId() {
         return id;
