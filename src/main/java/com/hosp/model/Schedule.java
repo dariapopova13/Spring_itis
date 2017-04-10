@@ -5,7 +5,6 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -45,13 +44,13 @@ public class Schedule extends AbstractEntity {
         this.roomNumber = roomNumber;
     }
 
-//    public Set<Users> getUsers() {
-//        return users;
-//    }
-//
-//    public void setUsers(Set<Users> users) {
-//        this.users = users;
-//    }
+    public Set<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
+    }
 
     public Integer getIsFree() {
         return isFree;

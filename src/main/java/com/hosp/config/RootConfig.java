@@ -14,5 +14,9 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableJpaRepositories(basePackages = "com.hosp.repository")
 public class RootConfig {
 
+    @Bean
+    public ObjectMapper objectMapper(){
+        return new ObjectMapper();
+    }
 
 }

@@ -1,7 +1,8 @@
 package com.hosp.config;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hibernate.SessionFactory;
+import org.hibernate.cfg.AvailableSettings;
+import org.hibernate.dialect.PostgreSQL95Dialect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -16,7 +17,9 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import sun.security.x509.AVA;
 
+import javax.persistence.CascadeType;
 import javax.sql.DataSource;
 import java.util.Properties;
 

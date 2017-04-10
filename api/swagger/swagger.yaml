@@ -10,11 +10,10 @@ schemes:
 produces:
 - "application/json"
 paths:
-  /home:
+  /:
     get:
       tags:
       - "Main"
-      operationId: "homeGET"
       parameters: []
       responses:
         200:
@@ -24,11 +23,10 @@ paths:
           schema:
             $ref: "#/definitions/Error"
       x-swagger-router-controller: "Main"
-  /doctors:
+  /action/doctor:
     get:
       tags:
-      - "Doctors"
-      operationId: "doctorsGET"
+      - "Doctor"
       parameters: []
       responses:
         200:
@@ -36,18 +34,16 @@ paths:
           schema:
             type: "array"
             items:
-              $ref: "#/definitions/Doctor"
+              $ref: '#/definitions/Specitalty'
         default:
           description: "Unexpected error"
           schema:
             $ref: "#/definitions/Error"
-      x-swagger-router-controller: "Doctors"
-  /doctors/{id}}:
+  /action/doctor/{id}:
     get:
       tags:
-      - "Doctors"
+      - "Doctor"
       summary: "Specific doctor"
-      operationId: "doctorsIdGET"
       parameters:
       - name: "id"
         in: "path"
@@ -61,14 +57,33 @@ paths:
           description: "Unexpected error"
           schema:
             $ref: "#/definitions/Error"
-      x-swagger-router-controller: "Doctors"
-  /me:
+  /admin/doctor:
+    post:
+      tags:
+      - "Admin"
+      summary: "Save or update doctor"
+      parameters:
+        - name: "doctor"
+          in:  body
+          required: true
+          description: |
+            doctor.
+          schema:
+            $ref: '#/definitions/Doctor'
+      responses:
+        200:
+          description: "Saved doctor"
+          schema:
+            $ref: "#/definitions/Doctor"
+        default:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/Error"
+  /user/me:
     get:
       tags:
       - "User"
       summary: "User page"
-      operationId: "meGET"
-      parameters: []
       responses:
         200:
           description: "user page"
@@ -78,35 +93,55 @@ paths:
           description: "Unexpected error"
           schema:
             $ref: "#/definitions/Error"
-      x-swagger-router-controller: "User"
-  /specialty/{id}:
-    get:
+  /user/entroll/delete:
+      post:
+        tags:
+        - "User"
+        summary: "delete record to the doctor"
+        parameters:
+          - name: "scheduleId"
+            in: "query"
+            required: true
+            type: "integer"
+            format: "int64"
+        responses:
+          200:
+            description: "success"
+            schema:
+              $ref: "#/definitions/User"
+          default:
+            description: "Unexpected error"
+            schema:
+              $ref: "#/definitions/Error"
+  /user/entroll:
+    post:
       tags:
-      - "Specialty"
-      summary: "Get all doctors of specific specialty"
-      operationId: "specialtyIdGET"
+      - "User"
+      summary: "Entroll to doctor"
       parameters:
-      - name: "id"
-        in: "path"
-        required: true
-        type: "integer"
-        format: "int64"
+        - name: "scheduleId"
+          in: "query"
+          required: true
+          type: "integer"
+          format: "int64"
       responses:
         200:
-          description: "all doctors"
+          description: "success"
           schema:
-            $ref: "#/definitions/Specitalty"
+            $ref: "#/definitions/User"
         default:
           description: "Unexpected error"
           schema:
             $ref: "#/definitions/Error"
-      x-swagger-router-controller: "Specialty"
 definitions:
   Role:
     type: "object"
     properties:
       name:
         type: "string"
+      id:
+        type: "integer"
+        format: "int64"
   User:
     type: "object"
     properties:
@@ -142,8 +177,9 @@ definitions:
         type: "string"
         description: "Doctor's surname."
       specialty:
-        type: "string"
-        description: "name of doctor's specialty."
+        type: "integer"
+        format: "int64"
+        description: "id of doctor's specialty."
       photoUrl:
         type: "string"
         description: "Doctor's photo."

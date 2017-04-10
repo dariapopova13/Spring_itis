@@ -5,6 +5,7 @@ import com.hosp.service.AdminService;
 import com.hosp.utills.RequestMappings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -21,8 +22,8 @@ public class AdminController {
 
     @RequestMapping(value = "/doctor", method = RequestMethod.POST)
     @ResponseBody
-    public DoctorDto saveDoctor(DoctorDto doctorDto) {
-        return adminService.saveDoctor(doctorDto);
+    public DoctorDto saveDoctor(@RequestBody DoctorDto  doctor) {
+        return adminService.saveDoctor(doctor);
     }
 
 }

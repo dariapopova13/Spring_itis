@@ -15,28 +15,51 @@ public class DoctorDto {
     private Long id;
     private String name;
     private String surname;
-    private String specialty;
+    private Long specialty;
     private String photoUrl;
-    private List<ScheduleDto> scheduleDto;
+    private List<ScheduleDto> schedules;
+    private String middleName;
+    private String patronymic;
 
     public DoctorDto(Doctor doctor) {
         this.id = doctor.getId();
+        this.patronymic = doctor.getPatronymic();
         this.name = doctor.getName();
         this.surname = doctor.getSurname();
         this.photoUrl = doctor.getPhotoUrl();
         this.specialty = doctor.getSpecialty() == null ?
-                null : doctor.getSpecialty().getName();
-        this.scheduleDto = doctor.getSchedules().stream()
+                null : doctor.getSpecialty().getId();
+        this.schedules = doctor.getSchedules().stream()
                 .map(ScheduleDto::new)
                 .collect(Collectors.toList());
+        this.middleName = doctor.getMiddleName();
     }
 
-    public List<ScheduleDto> getScheduleDto() {
-        return scheduleDto;
+    public DoctorDto() {
     }
 
-    public void setScheduleDto(List<ScheduleDto> scheduleDto) {
-        this.scheduleDto = scheduleDto;
+    public String getPatronymic() {
+        return patronymic;
+    }
+
+    public void setPatronymic(String patronymic) {
+        this.patronymic = patronymic;
+    }
+
+    public Long getSpecialty() {
+        return specialty;
+    }
+
+    public void setSpecialty(Long specialty) {
+        this.specialty = specialty;
+    }
+
+    public List<ScheduleDto> getSchedules() {
+        return schedules;
+    }
+
+    public void setSchedules(List<ScheduleDto> schedules) {
+        this.schedules = schedules;
     }
 
     public Long getId() {
@@ -69,5 +92,13 @@ public class DoctorDto {
 
     public void setPhotoUrl(String photoUrl) {
         this.photoUrl = photoUrl;
+    }
+
+    public String getMiddleName() {
+        return middleName;
+    }
+
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
     }
 }
