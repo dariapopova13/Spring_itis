@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 /**
  * Created by Daria Popova on 09.04.17.
  */
+
 @Controller
 @RequestMapping(value = RequestMappings.ADMIN)
 public class AdminController {
