@@ -26,18 +26,26 @@ public class User extends AbstractEntity {
     private String name;
     @Column(name = "surname")
     private String surname;
-//    @ManyToMany(fetch = FetchType.LAZY)
-//    @JoinTable(name = "patients_roles", joinColumns = @JoinColumn
-//            (name = "username"), inverseJoinColumns = @JoinColumn(name = "role"))
-//    private Set<Role> roles = new HashSet<>();
-//
-//    public Set<Schedule> getSchedules() {
-//        return schedules;
-//    }
-//
-//    public void setSchedules(Set<Schedule> schedules) {
-//        this.schedules = schedules;
-//    }
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "users_role", joinColumns = @JoinColumn
+            (name = "users_id"), inverseJoinColumns = @JoinColumn(name = "user"))
+    private Set<Role> roles = new HashSet<>();
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
+    public Set<Schedule> getSchedules() {
+        return schedules;
+    }
+
+    public void setSchedules(Set<Schedule> schedules) {
+        this.schedules = schedules;
+    }
 
     public String getUsername() {
         return username;

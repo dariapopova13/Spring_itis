@@ -17,8 +17,8 @@ public class Role extends AbstractEntity {
 
     @Column(name = "name")
     private String name;
-//    @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
-//    private Set<User> users = new HashSet<>();
+    @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
+    private Set<User> users = new HashSet<>();
 
     public Role() {
     }
@@ -30,12 +30,12 @@ public class Role extends AbstractEntity {
     public void setName(String name) {
         this.name = name;
     }
-//
-//    public Set<User> getUsers() {
-//        return users;
-//    }
-//
-//    public void setUsers(Set<User> users) {
-//        this.users = users;
-//    }
+
+    public Set<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
+    }
 }
