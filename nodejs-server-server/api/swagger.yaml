@@ -1,0 +1,260 @@
+---
+swagger: "2.0"
+info:
+  version: "1.0.0"
+  title: "Hospital API"
+host: "localhost:8080"
+basePath: "/"
+schemes:
+- "http"
+produces:
+- "application/json"
+paths:
+  /:
+    get:
+      tags:
+      - "Main"
+      operationId: "rootGET"
+      parameters: []
+      responses:
+        200:
+          description: "Main page"
+        default:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "Main"
+  /action/doctor:
+    get:
+      tags:
+      - "Doctor"
+      operationId: "actionDoctorGET"
+      parameters: []
+      responses:
+        200:
+          description: "An array of doctors"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Specitalty"
+        default:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "Doctors"
+  /action/doctor/{id}:
+    get:
+      tags:
+      - "Doctor"
+      summary: "Specific doctor"
+      operationId: "actionDoctorIdGET"
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "Doctor object with specific id"
+        default:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "Doctors"
+  /admin/doctor:
+    post:
+      tags:
+      - "Admin"
+      summary: "Save or update doctor"
+      operationId: "adminDoctorPOST"
+      parameters:
+      - in: "body"
+        name: "doctor"
+        description: "doctor.\n"
+        required: true
+        schema:
+          $ref: "#/definitions/Doctor"
+      responses:
+        200:
+          description: "Saved doctor"
+          schema:
+            $ref: "#/definitions/Doctor"
+        default:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "Doctor"
+  /user/me:
+    get:
+      tags:
+      - "User"
+      summary: "User page"
+      operationId: "userMeGET"
+      parameters: []
+      responses:
+        200:
+          description: "user page"
+          schema:
+            $ref: "#/definitions/User"
+        default:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "User"
+  /user/entroll/delete:
+    post:
+      tags:
+      - "User"
+      summary: "delete record to the doctor"
+      operationId: "userEntrollDeletePOST"
+      parameters:
+      - name: "scheduleId"
+        in: "query"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/User"
+        default:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "User"
+  /user/entroll:
+    post:
+      tags:
+      - "User"
+      summary: "Entroll to doctor"
+      operationId: "userEntrollPOST"
+      parameters:
+      - name: "scheduleId"
+        in: "query"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/User"
+        default:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "User"
+definitions:
+  Role:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+      id:
+        type: "integer"
+        format: "int64"
+  User:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      username:
+        type: "string"
+      password:
+        type: "string"
+      name:
+        type: "string"
+      surname:
+        type: "string"
+      role:
+        type: "object"
+        properties: {}
+      schedule:
+        type: "array"
+        items:
+          $ref: "#/definitions/Schedule"
+  Doctor:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+        description: "Doctor's id"
+      name:
+        type: "string"
+        description: "Doctor's name."
+      surname:
+        type: "string"
+        description: "Doctor's surname."
+      specialty:
+        type: "integer"
+        format: "int64"
+        description: "id of doctor's specialty."
+      middleName:
+        type: "string"
+        description: "middle name"
+      photoUrl:
+        type: "string"
+        description: "Doctor's photo."
+      patronymic:
+        type: "string"
+        description: "patronymic"
+      schedules:
+        type: "object"
+        properties: {}
+  Specitalty:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+        description: "Specialty id"
+      name:
+        type: "string"
+        description: "Specialty name"
+      doctors:
+        type: "array"
+        items:
+          $ref: "#/definitions/Doctor"
+  Schedule:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      roomNumber:
+        type: "string"
+      from:
+        type: "string"
+      to:
+        type: "string"
+      isFree:
+        type: "integer"
+        format: "int32"
+      doctorId:
+        type: "integer"
+        format: "int64"
+      week:
+        type: "object"
+        properties: {}
+  Error:
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        format: "int32"
+      message:
+        type: "string"
+      fields:
+        type: "string"
+  Week:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int32"
+      name:
+        type: "string"
